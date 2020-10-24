@@ -8,21 +8,21 @@ players_copy = copy.deepcopy(constants.PLAYERS)
 #Stores essential data for the panthers team
 panthers = []
 xp_panthers = []
-unxp_panthers = []
+inexp_panthers = []
 panthers_heights = []
 panthers_guardians = []
 
 #Stores essential data for the bandits team
 bandits = []
 xp_bandits = []
-unxp_bandits = []
+inexp_bandits = []
 bandits_heights = []
 bandits_guardians = []
 
 #Stores essential data for the warriors team
 warriors = []
 xp_warriors = []
-unxp_warriors = []
+inexp_warriors = []
 warriors_heights = []
 warriors_guardians = []
 
@@ -54,11 +54,11 @@ def balance_team():
                     panthers_guardians.append(guardian)
                     xp_panthers.append(players["experience"])
                     panthers_heights.append(players["height"])
-                elif players["experience"] == False and len(unxp_panthers) < 3:
+                elif players["experience"] == False and len(inexp_panthers) < 3:
                     panthers.append(players)
                     guardian = players["guardians"]
                     panthers_guardians.append(guardian)
-                    unxp_panthers.append(players["experience"])
+                    inexp_panthers.append(players["experience"])
                     panthers_heights.append(players["height"])
                 elif players["experience"] == True and len(xp_bandits) < 3:
                     bandits.append(players)
@@ -66,11 +66,11 @@ def balance_team():
                     bandits_guardians.append(guardian)
                     xp_bandits.append(players["experience"])
                     bandits_heights.append(players["height"])
-                elif players["experience"] == False and len(unxp_bandits) < 3:
+                elif players["experience"] == False and len(inexp_bandits) < 3:
                     bandits.append(players)
                     guardian = players["guardians"]
                     bandits_guardians.append(guardian)
-                    unxp_bandits.append(players["experience"])
+                    inexp_bandits.append(players["experience"])
                     bandits_heights.append(players["height"])
                 elif players["experience"] == True and len(xp_warriors) < 3:
                     warriors.append(players)
@@ -78,11 +78,11 @@ def balance_team():
                     warriors_guardians.append(guardian)
                     xp_warriors.append(players["experience"])
                     warriors_heights.append(players["height"])
-                elif players["experience"] == False and len(unxp_warriors) < 3:
+                elif players["experience"] == False and len(inexp_warriors) < 3:
                     warriors.append(players)
                     guardian = players["guardians"]
                     warriors_guardians.append(guardian)
-                    unxp_warriors.append(players["experience"])
+                    inexp_warriors.append(players["experience"])
                     warriors_heights.append(players["height"])
 
 
@@ -101,9 +101,9 @@ if __name__ == "__main__":
             select_team = int(input("""Please select what you would like to do by entering 1 or 2:
             \n (1). Display Team Stats \n (2). Quit \n >>> """))
             if select_team >= 3 or select_team < 1:
-                raise Exception("You choose a number that is neither 1 or 2")
+                raise Exception("ERROR! You choose a number that is neither 1 or 2")
         except ValueError:
-            print("Invalid entry what you entered is not a number")
+            print("ERROR! Invalid entry what you entered is not a number")
         except Exception as err:
             print(err)
         else:
@@ -115,9 +115,9 @@ if __name__ == "__main__":
                     team = int(input("""Please select one of the 3 teams available:
                     \n (1). Panthers \n (2). Bandits \n (3). Warriors \n >>> """))
                     if team >= 4 or team < 1:
-                        raise Exception("You choose a number that is neither 1, 2, or 3")
+                        raise Exception("ERROR! You choose a number that is neither 1, 2, or 3")
                 except ValueError:
-                    print("Invalid entry what you entered is not a number")
+                    print("ERROR! Invalid entry what you entered is not a number")
                 except Exception as err:
                     print(err)
                 else:
@@ -126,7 +126,7 @@ if __name__ == "__main__":
                         print("-" * 20)
                         print("Total players: ", len(panthers))
                         print("Total experienced: {}".format(len(xp_panthers)))
-                        print("Total inexperienced: {}".format(len(unxp_panthers)))
+                        print("Total inexperienced: {}".format(len(inexp_panthers)))
                         height_sum = sum(panthers_heights)
                         panthers_list_len = len(panthers_heights)
                         average_height = height_sum / panthers_list_len
@@ -139,7 +139,14 @@ if __name__ == "__main__":
                             panther_players.append(name)
                         print("Players on Team: {}".format(", ".join(panther_players)))
                         print("\n")
-                        print("Guardians: {}".format(", ".join(panthers_guardians)))
+                        #For loop splits the guardian names and then stores it in a list
+                        #Which then is combined by using join
+                        split_panthers_guardians = []
+                        for guardian in panthers_guardians:
+                            splitted = guardian.split("and")
+                            joined = ",".join(splitted)
+                            split_panthers_guardians.append(joined)
+                        print("Guardians: {} \n".format(", ".join(split_panthers_guardians)))
                         print("\n")
                         #Redirects user to main menu
                         want_continue = input("Press ENTER to continue.....")
@@ -150,7 +157,7 @@ if __name__ == "__main__":
                         print("-" * 20)
                         print("Total players: ", len(bandits))
                         print("Total experienced: {}".format(len(xp_bandits)))
-                        print("Total inexperienced: {}".format(len(unxp_bandits)))
+                        print("Total inexperienced: {}".format(len(inexp_bandits)))
                         height_sum = sum(bandits_heights)
                         bandits_list_len = len(bandits_heights)
                         average_height = height_sum / bandits_list_len
@@ -163,7 +170,14 @@ if __name__ == "__main__":
                             bandits_players.append(name)
                         print("Players on Team: {}".format(", ".join(bandits_players)))
                         print("\n")
-                        print("Guardians: {}".format(", ".join(bandits_guardians)))
+                        #For loop splits the guardian names and then stores it in a list
+                        #Which then is combined by using join
+                        split_bandits_guardians = []
+                        for guardian in bandits_guardians:
+                            splitted = guardian.split("and")
+                            joined = ",".join(splitted)
+                            split_bandits_guardians.append(joined)
+                        print("Guardians: {}".format(", ".join(split_bandits_guardians)))
                         print("\n")
                         #Redirects user to main menu
                         want_continue = input("Press ENTER to continue.....")
@@ -174,7 +188,7 @@ if __name__ == "__main__":
                         print("-" * 20)
                         print("Total players: ", len(warriors))
                         print("Total experienced: {}".format(len(xp_warriors)))
-                        print("Total inexperienced: {}".format(len(unxp_warriors)))
+                        print("Total inexperienced: {}".format(len(inexp_warriors)))
                         height_sum = sum(warriors_heights)
                         warriors_list_len = len(warriors_heights)
                         average_height = height_sum / warriors_list_len
@@ -187,7 +201,14 @@ if __name__ == "__main__":
                             warriors_players.append(name)
                         print("Players on Team: {}".format(", ".join(warriors_players)))
                         print("\n")
-                        print("Guardians: {}".format(", ".join(warriors_guardians)))
+                        #For loop splits the guardian names and then stores it in a list
+                        #Which then is combined by using join
+                        split_warriors_guardians = []
+                        for guardian in warriors_guardians:
+                            splitted = guardian.split("and")
+                            joined = ",".join(splitted)
+                            split_warriors_guardians.append(joined)
+                        print("Guardians: {}".format(", ".join(split_warriors_guardians)))
                         print("\n")
                         #Redirects user to main menu
                         want_continue = input("Press ENTER to continue.....")
